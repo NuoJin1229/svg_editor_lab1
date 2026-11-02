@@ -2,7 +2,7 @@
 
 高级软件开发技术课程 Phase 1 作业。TypeScript 面向对象实现，包含六种图形、19 种命令、Command 撤销重做、Composite 容器、SVG 文件读写。
 
-[GitHub 仓库](https://github.com/NuoJin1229/svg_editor_lab1) · [实验报告](./doc/README.md) · [验收记录](./doc/acceptance.md)
+[GitHub 仓库](https://github.com/NuoJin1229/svg_editor_lab1) · [实验报告](./doc/README.md) · [验收记录](./doc/acceptance.md) · [功能点验证](./doc/development-history.md)
 
 ## 安装与启动
 
@@ -39,7 +39,7 @@ npm run check:architecture
 
 `npm run verify` 汇总执行上述检查。构建后还可用 `node dist/main.js` 启动。
 
-本次最终验证为 67/67 测试通过，包含真实 CLI 进程、课程会话、失败回滚、SVG 往返和渲染像素检查。[验证日志](./doc/evidence/verification.txt)
+验证结果为 67/67 测试通过，覆盖真实 CLI 进程、课程会话、失败回滚、SVG 往返和渲染像素检查。[验证日志](./doc/evidence/verification.txt)
 
 ## 重现样例与渲染
 
