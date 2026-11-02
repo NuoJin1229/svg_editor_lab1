@@ -25,7 +25,7 @@ export class FileDocumentStore implements DocumentStore {
     const source = this.#serializer.serialize(document);
     const temporary = join(dirname(path), `.${basename(path)}.${randomUUID()}.tmp`);
     try {
-      const existing = await stat(path).catch(error => {
+      const existing = await stat(path).catch((error) => {
         if ((error as NodeJS.ErrnoException).code === 'ENOENT') return undefined;
         throw error;
       });
@@ -34,7 +34,9 @@ export class FileDocumentStore implements DocumentStore {
       try {
         await handle.writeFile(source, 'utf8');
         await handle.sync();
-      } finally { await handle.close(); }
+      } finally {
+        await handle.close();
+      }
       await rename(temporary, path);
     } catch (cause) {
       await unlink(temporary).catch(() => undefined);

@@ -5,14 +5,26 @@ export abstract class Shape {
   readonly #id: string;
   readonly #styles = new Map<string, string>();
 
-  protected constructor(id: string) { this.#id = Value.id(id); }
+  protected constructor(id: string) {
+    this.#id = Value.id(id);
+  }
 
-  get id(): string { return this.#id; }
+  get id(): string {
+    return this.#id;
+  }
   abstract get tag(): string;
-  get label(): string { return `${this.tag}#${this.id}`; }
-  get children(): readonly Shape[] { return []; }
-  get textContent(): string | undefined { return undefined; }
-  get container(): GroupShape | undefined { return undefined; }
+  get label(): string {
+    return `${this.tag}#${this.id}`;
+  }
+  get children(): readonly Shape[] {
+    return [];
+  }
+  get textContent(): string | undefined {
+    return undefined;
+  }
+  get container(): GroupShape | undefined {
+    return undefined;
+  }
 
   abstract clone(): Shape;
   protected abstract moveGeometry(dx: number, dy: number): void;
@@ -48,7 +60,9 @@ export abstract class Shape {
   }
 
   summary(): string {
-    const styles = [...this.#styles].map(([key, value]) => `${key}=${JSON.stringify(value).slice(1, -1)}`);
+    const styles = [...this.#styles].map(
+      ([key, value]) => `${key}=${JSON.stringify(value).slice(1, -1)}`,
+    );
     return [this.label, this.geometrySummary(), ...styles].filter(Boolean).join('  ');
   }
 

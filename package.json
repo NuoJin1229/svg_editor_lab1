@@ -12,9 +12,11 @@
     "build": "tsc -p tsconfig.build.json",
     "test": "tsx --test --test-concurrency=1 tests/*.test.ts",
     "cli": "tsx src/main.ts",
-    "check:architecture": "tsx scripts/check-architecture.ts",
     "render": "tsx scripts/render.ts",
-    "examples": "tsx scripts/run-examples.ts"
+    "examples": "tsx scripts/run-examples.ts",
+    "check:architecture": "tsx scripts/check-architecture.ts",
+    "format": "prettier --write src tests scripts *.json",
+    "verify": "npm run typecheck && npm run build && npm run check:architecture && npm test"
   },
   "dependencies": {
     "@xmldom/xmldom": "0.9.12"
@@ -22,6 +24,7 @@
   "devDependencies": {
     "@resvg/resvg-js": "2.6.2",
     "@types/node": "26.6.6",
+    "prettier": "3.9.10",
     "tsx": "4.23.15",
     "typescript": "7.0.2"
   }

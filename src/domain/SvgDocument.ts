@@ -16,11 +16,21 @@ export class SvgDocument {
     this.validate();
   }
 
-  get width(): number { return this.#width; }
-  get height(): number { return this.#height; }
-  get roots(): readonly Shape[] { return [...this.#roots]; }
-  get count(): number { return this.#index.size; }
-  get shapes(): readonly Shape[] { return [...this.#index.values()]; }
+  get width(): number {
+    return this.#width;
+  }
+  get height(): number {
+    return this.#height;
+  }
+  get roots(): readonly Shape[] {
+    return [...this.#roots];
+  }
+  get count(): number {
+    return this.#index.size;
+  }
+  get shapes(): readonly Shape[] {
+    return [...this.#index.values()];
+  }
 
   resize(width: number, height: number): void {
     const nextWidth = Value.positive(width, 'width');
@@ -64,22 +74,27 @@ export class SvgDocument {
     this.requireNewId(Value.id(id));
     if (!selectedIds.length) throw new Error('group requires at least one shape');
     if (new Set(selectedIds).size !== selectedIds.length) throw new Error('duplicate group target');
-    const selected = selectedIds.map(target => this.find(target));
+    const selected = selectedIds.map((target) => this.find(target));
     for (const shape of selected) {
-      if (selected.some(other => other !== shape && shape.container?.contains(other))) {
+      if (selected.some((other) => other !== shape && shape.container?.contains(other))) {
         throw new Error(`cannot group a container into its own descendant: ${shape.id}`);
       }
     }
-    const parentChains = selected.map(shape => this.ancestors(shape));
-    const parent = parentChains[0]!.find(candidate => parentChains.every(chain => chain.includes(candidate))) ?? null;
+    const parentChains = selected.map((shape) => this.ancestors(shape));
+    const parent =
+      parentChains[0]!.find((candidate) =>
+        parentChains.every((chain) => chain.includes(candidate)),
+      ) ?? null;
     const siblings = this.childrenOf(parent);
-    const position = Math.min(...selected.map(shape => {
-      let branch = shape;
-      while ((this.#parents.get(branch) ?? null) !== parent) branch = this.#parents.get(branch)!;
-      return siblings.indexOf(branch);
-    }));
+    const position = Math.min(
+      ...selected.map((shape) => {
+        let branch = shape;
+        while ((this.#parents.get(branch) ?? null) !== parent) branch = this.#parents.get(branch)!;
+        return siblings.indexOf(branch);
+      }),
+    );
     const chosen = new Set(selected);
-    const ordered = this.shapes.filter(shape => chosen.has(shape));
+    const ordered = this.shapes.filter((shape) => chosen.has(shape));
     const group = new GroupShape(id);
     for (const shape of ordered) {
       this.detach(shape);
@@ -108,17 +123,26 @@ export class SvgDocument {
   addTo(containerId: string, id: string): void {
     const parent = this.container(containerId);
     const shape = this.find(id);
-    if (shape === parent || shape.container?.contains(parent)) throw new Error(`cannot move a shape into itself or its descendant: ${id}`);
+    if (shape === parent || shape.container?.contains(parent))
+      throw new Error(`cannot move a shape into itself or its descendant: ${id}`);
     this.detach(shape);
     parent.insert(parent.children.length, shape);
     this.validate();
   }
 
-  front(id: string): void { this.reorder(id, false); }
-  back(id: string): void { this.reorder(id, true); }
+  front(id: string): void {
+    this.reorder(id, false);
+  }
+  back(id: string): void {
+    this.reorder(id, true);
+  }
 
   clone(): SvgDocument {
-    return new SvgDocument(this.width, this.height, this.#roots.map(shape => shape.clone()));
+    return new SvgDocument(
+      this.width,
+      this.height,
+      this.#roots.map((shape) => shape.clone()),
+    );
   }
 
   restore(source: SvgDocument): void {
@@ -152,12 +176,17 @@ export class SvgDocument {
   private ancestors(shape: Shape): (GroupShape | null)[] {
     const result: (GroupShape | null)[] = [];
     let parent = this.#parents.get(shape) ?? null;
-    while (parent) { result.push(parent); parent = this.#parents.get(parent) ?? null; }
+    while (parent) {
+      result.push(parent);
+      parent = this.#parents.get(parent) ?? null;
+    }
     result.push(null);
     return result;
   }
 
-  private childrenOf(parent: GroupShape | null): readonly Shape[] { return parent ? parent.children : this.#roots; }
+  private childrenOf(parent: GroupShape | null): readonly Shape[] {
+    return parent ? parent.children : this.#roots;
+  }
 
   private insert(parent: GroupShape | null, index: number, shape: Shape): void {
     if (parent) parent.insert(index, shape);

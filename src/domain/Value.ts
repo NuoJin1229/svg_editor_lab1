@@ -29,7 +29,8 @@ export class Value {
 
   static id(value: string): string {
     Value.text(value);
-    if (!value || /\s/u.test(value)) throw new Error('id must be non-empty and contain no whitespace');
+    if (!value || /\s/u.test(value))
+      throw new Error('id must be non-empty and contain no whitespace');
     return value;
   }
 }

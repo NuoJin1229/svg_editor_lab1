@@ -19,6 +19,8 @@ export class SvgRepl {
         }
         output.write('svg> ');
       }
-    } finally { lines.close(); }
+    } finally {
+      lines.close();
+    }
   }
 }

@@ -15,16 +15,66 @@ function editor(): EditorService {
 }
 
 const edits: ReadonlyArray<readonly [string, (service: EditorService) => void]> = [
-  ['create', s => { s.create('ellipse', 'e', ['1', '2', '3', '4'], 'inner'); }],
-  ['delete', s => { s.delete('inner'); }],
-  ['move', s => { s.move('outer', '10', '20'); }],
-  ['scale', s => { s.scale('outer', '2'); }],
-  ['set', s => { s.set('t', 'text', '新的文本 & <内容>'); }],
-  ['group', s => { s.group('cluster', ['c', 't']); }],
-  ['ungroup', s => { s.ungroup('inner'); }],
-  ['addto', s => { s.addto('inner', 'c'); }],
-  ['front', s => { s.front('r'); }],
-  ['back', s => { s.back('t'); }],
+  [
+    'create',
+    (s) => {
+      s.create('ellipse', 'e', ['1', '2', '3', '4'], 'inner');
+    },
+  ],
+  [
+    'delete',
+    (s) => {
+      s.delete('inner');
+    },
+  ],
+  [
+    'move',
+    (s) => {
+      s.move('outer', '10', '20');
+    },
+  ],
+  [
+    'scale',
+    (s) => {
+      s.scale('outer', '2');
+    },
+  ],
+  [
+    'set',
+    (s) => {
+      s.set('t', 'text', '新的文本 & <内容>');
+    },
+  ],
+  [
+    'group',
+    (s) => {
+      s.group('cluster', ['c', 't']);
+    },
+  ],
+  [
+    'ungroup',
+    (s) => {
+      s.ungroup('inner');
+    },
+  ],
+  [
+    'addto',
+    (s) => {
+      s.addto('inner', 'c');
+    },
+  ],
+  [
+    'front',
+    (s) => {
+      s.front('r');
+    },
+  ],
+  [
+    'back',
+    (s) => {
+      s.back('t');
+    },
+  ],
 ];
 
 for (const [name, edit] of edits) {

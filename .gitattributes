@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.png binary
+# Raw CLI transcripts retain the trailing space in the svg> prompt.
+doc/evidence/*.txt whitespace=-blank-at-eol

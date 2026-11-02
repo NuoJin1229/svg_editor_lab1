@@ -22,8 +22,11 @@ export class CommandTokenizer {
     for (let index = 0; index < line.length; index++) {
       const character = line[index]!;
       if (inside) {
-        if (character === '"') { inside = false; closed = true; }
-        else if (character === '\\' && ['"', '\\'].includes(line[index + 1] ?? '')) value += line[++index]!;
+        if (character === '"') {
+          inside = false;
+          closed = true;
+        } else if (character === '\\' && ['"', '\\'].includes(line[index + 1] ?? ''))
+          value += line[++index]!;
         else value += character;
       } else if (/\s/u.test(character)) flush();
       else if (closed) throw new Error('expected whitespace after closing quote');
@@ -32,7 +35,10 @@ export class CommandTokenizer {
         active = true;
         quoted = true;
         inside = true;
-      } else { active = true; value += character; }
+      } else {
+        active = true;
+        value += character;
+      }
     }
     if (inside) throw new Error('unclosed double quote');
     flush();

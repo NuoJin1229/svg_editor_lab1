@@ -13,8 +13,10 @@ export class SvgSerializer {
     root.setAttribute('viewBox', `0 0 ${document.width} ${document.height}`);
     const encode = (shape: Shape): ReturnType<typeof xml.createElementNS> => {
       const element = xml.createElementNS(namespace, shape.tag);
-      for (const [name, value] of Object.entries(shape.attributes())) element.setAttribute(name, value);
-      if (shape.textContent !== undefined) element.appendChild(xml.createTextNode(shape.textContent));
+      for (const [name, value] of Object.entries(shape.attributes()))
+        element.setAttribute(name, value);
+      if (shape.textContent !== undefined)
+        element.appendChild(xml.createTextNode(shape.textContent));
       for (const child of shape.children) element.appendChild(encode(child));
       return element;
     };

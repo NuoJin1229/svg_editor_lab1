@@ -32,12 +32,20 @@ export class EditorService {
     return this.#document;
   }
 
-  get session(): Readonly<{ path: string | undefined; undo: number; redo: number; blocked: boolean }> {
+  get session(): Readonly<{
+    path: string | undefined;
+    undo: number;
+    redo: number;
+    blocked: boolean;
+  }> {
     return { path: this.#path, ...this.#history.state };
   }
 
   init(width = '800', height = '600'): string {
-    const document = new SvgDocument(Value.positive(width, 'width'), Value.positive(height, 'height'));
+    const document = new SvgDocument(
+      Value.positive(width, 'width'),
+      Value.positive(height, 'height'),
+    );
     this.#document = document;
     this.#path = undefined;
     this.#history.barrier();
@@ -65,8 +73,10 @@ export class EditorService {
 
   canvas(width?: string, height?: string): string {
     const document = this.requireDocument();
-    if (width === undefined && height === undefined) return `canvas ${document.width}x${document.height}`;
-    if (width === undefined || height === undefined) throw new Error('canvas requires both width and height');
+    if (width === undefined && height === undefined)
+      return `canvas ${document.width}x${document.height}`;
+    if (width === undefined || height === undefined)
+      throw new Error('canvas requires both width and height');
     document.resize(Value.positive(width, 'width'), Value.positive(height, 'height'));
     this.#history.barrier();
     return `canvas resized to ${document.width}x${document.height}`;
@@ -75,19 +85,47 @@ export class EditorService {
   create(type: string, id: string, parameters: readonly string[], parent?: string): string {
     return this.edit(new CreateShapeCommand(this.#factory, type, id, parameters, parent));
   }
-  delete(id: string): string { return this.edit(new DeleteShapeCommand(id)); }
-  move(id: string, dx: string, dy: string): string { return this.edit(new MoveShapeCommand(id, Value.number(dx, 'dx'), Value.number(dy, 'dy'))); }
-  scale(id: string, factor: string): string { return this.edit(new ScaleShapeCommand(id, Value.positive(factor, 'scale factor'))); }
-  set(id: string, attribute: string, value: string): string { return this.edit(new SetAttributeCommand(id, attribute, value)); }
-  group(id: string, targets: readonly string[]): string { return this.edit(new GroupCommand(id, targets)); }
-  ungroup(id: string): string { return this.edit(new UngroupCommand(id)); }
-  addto(container: string, id: string): string { return this.edit(new AddToCommand(container, id)); }
-  front(id: string): string { return this.edit(new FrontCommand(id)); }
-  back(id: string): string { return this.edit(new BackCommand(id)); }
-  tree(id?: string): string { return this.#tree.format(this.requireDocument(), id); }
-  show(id: string): string { return this.#show.format(this.requireDocument(), id); }
-  undo(): string { return this.#history.undo(this.requireDocument()); }
-  redo(): string { return this.#history.redo(this.requireDocument()); }
+  delete(id: string): string {
+    return this.edit(new DeleteShapeCommand(id));
+  }
+  move(id: string, dx: string, dy: string): string {
+    return this.edit(new MoveShapeCommand(id, Value.number(dx, 'dx'), Value.number(dy, 'dy')));
+  }
+  scale(id: string, factor: string): string {
+    return this.edit(new ScaleShapeCommand(id, Value.positive(factor, 'scale factor')));
+  }
+  set(id: string, attribute: string, value: string): string {
+    return this.edit(new SetAttributeCommand(id, attribute, value));
+  }
+  group(id: string, targets: readonly string[]): string {
+    return this.edit(new GroupCommand(id, targets));
+  }
+  ungroup(id: string): string {
+    return this.edit(new UngroupCommand(id));
+  }
+  addto(container: string, id: string): string {
+    return this.edit(new AddToCommand(container, id));
+  }
+  front(id: string): string {
+    return this.edit(new FrontCommand(id));
+  }
+  back(id: string): string {
+    return this.edit(new BackCommand(id));
+  }
+  tree(id?: string): string {
+    return this.#tree.format(this.requireDocument(), id);
+  }
+  show(id: string): string {
+    return this.#show.format(this.requireDocument(), id);
+  }
+  undo(): string {
+    return this.#history.undo(this.requireDocument());
+  }
+  redo(): string {
+    return this.#history.redo(this.requireDocument());
+  }
 
-  private edit(command: Command): string { return this.#history.execute(command, this.requireDocument()); }
+  private edit(command: Command): string {
+    return this.#history.execute(command, this.requireDocument());
+  }
 }
