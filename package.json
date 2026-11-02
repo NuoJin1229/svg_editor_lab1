@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "build": "tsc -p tsconfig.build.json",
     "test": "tsx --test --test-concurrency=1 tests/*.test.ts",
-    "cli": "tsx src/main.ts"
+    "cli": "tsx src/main.ts",
+    "check:architecture": "tsx scripts/check-architecture.ts"
   },
   "dependencies": {
     "@xmldom/xmldom": "0.9.12"
