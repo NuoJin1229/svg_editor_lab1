@@ -1,0 +1,8 @@
+svg-editor 0.1 — type 'help' for commands
+svg> canvas 100x80 created
+svg> text#t created
+svg> text#t  parent=svg
+  x="10"
+  y="20"
+  text="编译后入口"
+svg> 

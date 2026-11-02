@@ -1,0 +1,24 @@
+svg-editor 0.1 — type 'help' for commands
+svg> canvas 800x600 created
+svg> rect#r created
+svg> rect#r moved by (10,0)
+svg> rect#r moved back by (-10,0)
+svg> error: unknown attribute: unknown
+svg> rect#r moved by (10,0)
+svg> rect#r  parent=svg
+  x="11"
+  y="2"
+  width="3"
+  height="4"
+svg> saved to recovery.svg (1 elements)
+svg> error: unknown shape type: box (is the plugin loaded?)
+svg> error: undo not allowed after io command
+svg> rect#r moved by (0,0)
+svg> rect#r moved back by (0,0)
+svg> error: nothing to undo
+svg> rect#r  parent=svg
+  x="11"
+  y="2"
+  width="3"
+  height="4"
+svg> 

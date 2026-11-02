@@ -1,0 +1,17 @@
+
+> svg-editor-lab1@0.1.0 cli
+> tsx src/main.ts
+
+svg-editor 0.1 — type 'help' for commands
+svg> canvas 120x80 created
+svg> rect#r created
+svg> rect#r  parent=svg
+  fill="red"
+  x="10"
+  y="10"
+  width="20"
+  height="20"
+svg> rect#r removed
+svg> rect#r created
+svg> canvas 120x80
+svg> 

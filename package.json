@@ -13,7 +13,8 @@
     "test": "tsx --test --test-concurrency=1 tests/*.test.ts",
     "cli": "tsx src/main.ts",
     "check:architecture": "tsx scripts/check-architecture.ts",
-    "render": "tsx scripts/render.ts"
+    "render": "tsx scripts/render.ts",
+    "examples": "tsx scripts/run-examples.ts"
   },
   "dependencies": {
     "@xmldom/xmldom": "0.9.12"

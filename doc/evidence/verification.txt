@@ -1,0 +1,103 @@
+
+> svg-editor-lab1@0.1.0 verify
+> npm run typecheck && npm run build && npm run check:architecture && npm test
+
+
+> svg-editor-lab1@0.1.0 typecheck
+> tsc --noEmit
+
+
+> svg-editor-lab1@0.1.0 build
+> tsc -p tsconfig.build.json
+
+
+> svg-editor-lab1@0.1.0 check:architecture
+> tsx scripts/check-architecture.ts
+
+PASS: 35 source files, 33 classes, 95 imports, no layer or class/file violations
+application -> domain
+cli -> application
+infrastructure -> application
+infrastructure -> domain
+main -> application
+main -> cli
+main -> infrastructure
+
+> svg-editor-lab1@0.1.0 test
+> tsx --test --test-concurrency=1 tests/*.test.ts
+
+✔ create: one Command precisely undoes and redoes the complete model (4.769ms)
+✔ delete: one Command precisely undoes and redoes the complete model (0.6936ms)
+✔ move: one Command precisely undoes and redoes the complete model (0.6456ms)
+✔ scale: one Command precisely undoes and redoes the complete model (0.5425ms)
+✔ set: one Command precisely undoes and redoes the complete model (0.6277ms)
+✔ group: one Command precisely undoes and redoes the complete model (0.7985ms)
+✔ ungroup: one Command precisely undoes and redoes the complete model (0.5585ms)
+✔ addto: one Command precisely undoes and redoes the complete model (0.5405ms)
+✔ front: one Command precisely undoes and redoes the complete model (0.5237ms)
+✔ back: one Command precisely undoes and redoes the complete model (0.6ms)
+✔ failed edits preserve redo; readonly queries preserve the entire session (2.0064ms)
+✔ partway Composite numeric overflow restores previously changed siblings (0.5362ms)
+✔ all document barriers, failed I/O and default paths obey the state machine (1.1204ms)
+✔ zero-change success consumes one history unit; invalid input preserves it (0.8353ms)
+✔ tokenizer preserves quote metadata, colors, empty text, Chinese and Windows paths (2.3119ms)
+✔ dispatcher supports all six create-in forms and quoted in content (3.9361ms)
+✔ failed input keeps model and history: move r 1 (0.6982ms)
+✔ failed input keeps model and history: move r 1 2 extra (1.0261ms)
+✔ failed input keeps model and history: init 1 2 3 (0.4238ms)
+✔ failed input keeps model and history: canvas 10 (0.331ms)
+✔ failed input keeps model and history: create rect r 1 2 3 4 (0.3357ms)
+✔ failed input keeps model and history: create circle c 1x 2 3 (0.3175ms)
+✔ failed input keeps model and history: create text t 0 0 "unfinished (0.3085ms)
+✔ failed input keeps model and history: create text t 0 0 "a" extra (0.3625ms)
+✔ failed input keeps model and history: create g h in missing (0.3792ms)
+✔ failed input keeps model and history: create g h in r (0.2416ms)
+✔ failed input keeps model and history: delete missing (0.3042ms)
+✔ failed input keeps model and history: set r bad 1 (0.3303ms)
+✔ failed input keeps model and history: scale r 0 (0.2341ms)
+✔ failed input keeps model and history: scale r NaN (0.1936ms)
+✔ failed input keeps model and history: create box b 0 0 1 1 "title" (0.2037ms)
+✔ failed input keeps model and history: unknown (0.2841ms)
+✔ real CLI process replays typical and validates its SVG artifact (419.1226ms)
+✔ real CLI process replays flowchart and validates its SVG artifact (227.9288ms)
+✔ real CLI process replays recovery and validates its SVG artifact (219.0794ms)
+✔ real CLI EOF, empty input and invalid command recover without a stack trace (518.6389ms)
+✔ real CLI exercises all 19 command entry points in one session (223.5166ms)
+✔ rect: polymorphic geometry, styles and independent clone (2.356ms)
+✔ circle: polymorphic geometry, styles and independent clone (0.2878ms)
+✔ ellipse: polymorphic geometry, styles and independent clone (0.32ms)
+✔ line: polymorphic geometry, styles and independent clone (0.3056ms)
+✔ text: polymorphic geometry, styles and independent clone (0.381ms)
+✔ nested Composite applies each transform once and retains inherited style declarations (1.1933ms)
+✔ tree operations preserve document order, parents and global IDs (0.8508ms)
+✔ invalid tree edits fail before mutation; IDs are case-sensitive (0.4445ms)
+✔ snapshot deeply restores geometry, styles, text, tree and index (0.3893ms)
+✔ numeric validation, overflow, unknown types and attributes (0.5236ms)
+✔ rendered pixels verify front/back order, group paint inheritance and Composite movement (9.1023ms)
+✔ course other.svg imports 7 shapes in order with one exact warning (14.0439ms)
+✔ two-pass ID allocation reserves later IDs and includes empty IDs and groups (0.7124ms)
+✔ all shapes, interleaved order, inherited styles and XML text survive round-trip (3.0704ms)
+✔ prefixed SVG namespace, CDATA, px dimensions, defaults and box degradation (1.1195ms)
+✔ reject duplicate IDs (0.3662ms)
+✔ reject negative geometry (0.2555ms)
+✔ reject invalid numeric suffix (0.2289ms)
+✔ reject nonfinite geometry (0.1843ms)
+✔ reject unsupported transform (0.2729ms)
+✔ reject unsupported font (0.2856ms)
+✔ reject unsupported element (0.1685ms)
+✔ reject unsupported CSS (0.173ms)
+✔ reject text as attribute (0.1891ms)
+✔ reject mixed nested text (0.2148ms)
+✔ reject unresolved entity (0.2186ms)
+✔ reject unclosed XML (0.1768ms)
+✔ reject foreign namespace (0.1805ms)
+✔ reject invalid root, root attributes, viewBox and DOCTYPE (1.4465ms)
+✔ real file save replaces existing contents atomically; failure preserves session and leaves no temp file (31.6687ms)
+ℹ tests 67
+ℹ suites 0
+ℹ pass 67
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3169.4749

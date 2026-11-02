@@ -1,0 +1,5 @@
+svg-editor 0.1 — type 'help' for commands
+svg> read flowchart.svg (8 elements)
+svg> g#node2 moved by (0,100)
+svg> saved to flowchart-moved.svg (8 elements)
+svg> 
