@@ -16,12 +16,69 @@ interface ShapeDefinition {
 export class ShapeFactory {
   // The only shape-name dispatch site. Future phase: replace built-ins with providers.
   readonly #definitions = new Map<string, ShapeDefinition>([
-    ['rect', { parameters: ['x', 'y', 'width', 'height'], paint: 'fill', make: (id, v) => new RectShape(id, this.numeric(v, 'x'), this.numeric(v, 'y'), this.numeric(v, 'width'), this.numeric(v, 'height')) }],
-    ['circle', { parameters: ['cx', 'cy', 'r'], paint: 'fill', make: (id, v) => new CircleShape(id, this.numeric(v, 'cx'), this.numeric(v, 'cy'), this.numeric(v, 'r')) }],
-    ['ellipse', { parameters: ['cx', 'cy', 'rx', 'ry'], paint: 'fill', make: (id, v) => new EllipseShape(id, this.numeric(v, 'cx'), this.numeric(v, 'cy'), this.numeric(v, 'rx'), this.numeric(v, 'ry')) }],
-    ['line', { parameters: ['x1', 'y1', 'x2', 'y2'], paint: 'stroke', make: (id, v) => new LineShape(id, this.numeric(v, 'x1'), this.numeric(v, 'y1'), this.numeric(v, 'x2'), this.numeric(v, 'y2')) }],
-    ['text', { parameters: ['x', 'y', 'text'], make: (id, v) => new TextShape(id, this.numeric(v, 'x'), this.numeric(v, 'y'), v.text ?? '') }],
-    ['g', { parameters: [], make: id => new GroupShape(id) }],
+    [
+      'rect',
+      {
+        parameters: ['x', 'y', 'width', 'height'],
+        paint: 'fill',
+        make: (id, v) =>
+          new RectShape(
+            id,
+            this.numeric(v, 'x'),
+            this.numeric(v, 'y'),
+            this.numeric(v, 'width'),
+            this.numeric(v, 'height'),
+          ),
+      },
+    ],
+    [
+      'circle',
+      {
+        parameters: ['cx', 'cy', 'r'],
+        paint: 'fill',
+        make: (id, v) =>
+          new CircleShape(id, this.numeric(v, 'cx'), this.numeric(v, 'cy'), this.numeric(v, 'r')),
+      },
+    ],
+    [
+      'ellipse',
+      {
+        parameters: ['cx', 'cy', 'rx', 'ry'],
+        paint: 'fill',
+        make: (id, v) =>
+          new EllipseShape(
+            id,
+            this.numeric(v, 'cx'),
+            this.numeric(v, 'cy'),
+            this.numeric(v, 'rx'),
+            this.numeric(v, 'ry'),
+          ),
+      },
+    ],
+    [
+      'line',
+      {
+        parameters: ['x1', 'y1', 'x2', 'y2'],
+        paint: 'stroke',
+        make: (id, v) =>
+          new LineShape(
+            id,
+            this.numeric(v, 'x1'),
+            this.numeric(v, 'y1'),
+            this.numeric(v, 'x2'),
+            this.numeric(v, 'y2'),
+          ),
+      },
+    ],
+    [
+      'text',
+      {
+        parameters: ['x', 'y', 'text'],
+        make: (id, v) =>
+          new TextShape(id, this.numeric(v, 'x'), this.numeric(v, 'y'), v.text ?? ''),
+      },
+    ],
+    ['g', { parameters: [], make: (id) => new GroupShape(id) }],
   ]);
 
   create(type: string, id: string, parameters: readonly string[]): Shape {
@@ -30,23 +87,34 @@ export class ShapeFactory {
     if (parameters.length < expected || parameters.length > expected + (definition.paint ? 1 : 0)) {
       throw new Error(`invalid arguments for create ${type}`);
     }
-    const values = Object.fromEntries(definition.parameters.map((name, index) => [name, parameters[index]!]));
+    const values = Object.fromEntries(
+      definition.parameters.map((name, index) => [name, parameters[index]!]),
+    );
     const shape = definition.make(id, values);
-    if (definition.paint && parameters.length > expected) shape.setAttribute(definition.paint, parameters[expected]!);
+    if (definition.paint && parameters.length > expected)
+      shape.setAttribute(definition.paint, parameters[expected]!);
     return shape;
   }
 
-  fromAttributes(type: string, id: string, attributes: Readonly<Record<string, string>>, text?: string): Shape {
+  fromAttributes(
+    type: string,
+    id: string,
+    attributes: Readonly<Record<string, string>>,
+    text?: string,
+  ): Shape {
     const definition = this.definition(type);
     const values: Record<string, string> = {};
-    for (const name of definition.parameters) values[name] = name === 'text' ? text ?? '' : (attributes[name] ?? '0').replace(/px$/, '');
+    for (const name of definition.parameters)
+      values[name] =
+        name === 'text' ? (text ?? '') : (attributes[name] ?? '0').trim().replace(/px$/, '');
     const shape = definition.make(id, values);
-    if (text !== undefined && shape.textContent === undefined && text.trim()) throw new Error(`unexpected text in <${type}>`);
+    if (text !== undefined && shape.textContent === undefined && text.trim())
+      throw new Error(`unexpected text in <${type}>`);
     for (const [name, value] of Object.entries(attributes)) {
-      if (name === 'id' || definition.parameters.includes(name) && name !== 'text') continue;
+      if (name === 'id' || (definition.parameters.includes(name) && name !== 'text')) continue;
       if (name === 'data-kind' && shape.container) continue;
       if (name === 'text') throw new Error('text content must be an XML text node');
-      shape.setAttribute(name, name === 'stroke-width' ? value.replace(/px$/, '') : value);
+      shape.setAttribute(name, name === 'stroke-width' ? value.trim().replace(/px$/, '') : value);
     }
     return shape;
   }
