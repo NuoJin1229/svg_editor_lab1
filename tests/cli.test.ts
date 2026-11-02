@@ -15,11 +15,17 @@ const tokenizer = new CommandTokenizer();
 
 test('tokenizer preserves quote metadata, colors, empty text, Chinese and Windows paths', () => {
   const tokens = tokenizer.tokenize(String.raw`create text t 1 2 "开始 \"test\" C:\Users\me" in g`);
-  assert.deepEqual(tokens.map(token => token.value), ['create', 'text', 't', '1', '2', '开始 "test" C:\\Users\\me', 'in', 'g']);
+  assert.deepEqual(
+    tokens.map((token) => token.value),
+    ['create', 'text', 't', '1', '2', '开始 "test" C:\\Users\\me', 'in', 'g'],
+  );
   assert.equal(tokens[5]?.quoted, true);
   assert.deepEqual(tokenizer.tokenize('  # comment'), []);
   assert.deepEqual(tokenizer.tokenize(''), []);
-  assert.deepEqual(tokenizer.tokenize('set r fill #ffffff').map(token => token.value), ['set', 'r', 'fill', '#ffffff']);
+  assert.deepEqual(
+    tokenizer.tokenize('set r fill #ffffff').map((token) => token.value),
+    ['set', 'r', 'fill', '#ffffff'],
+  );
   assert.equal(tokenizer.tokenize('set t text ""')[3]?.value, '');
   assert.throws(() => tokenizer.tokenize('create text t 0 0 "unfinished'), /unclosed double quote/);
   assert.throws(() => tokenizer.tokenize('"abc"def'), /whitespace/);
@@ -39,7 +45,8 @@ test('dispatcher supports all six create-in forms and quoted in content', async 
   await run('create line l 1 2 3 4 black in inner');
   await run('create text t 1 2 "in" in inner');
   assert.equal(editor.requireDocument().find('t').textContent, 'in');
-  for (const id of ['r', 'c', 'e', 'l', 't']) assert.equal(editor.requireDocument().parent(id)?.id, 'inner');
+  for (const id of ['r', 'c', 'e', 'l', 't'])
+    assert.equal(editor.requireDocument().parent(id)?.id, 'inner');
   const help = await run('help');
   assert.equal(help?.split('\n').length, 19);
   const state = editor.session;
@@ -51,8 +58,10 @@ test('dispatcher supports all six create-in forms and quoted in content', async 
 });
 
 const invalidCommands: ReadonlyArray<readonly [string, RegExp]> = [
-  ['move r 1', /usage: move/], ['move r 1 2 extra', /usage: move/],
-  ['init 1 2 3', /usage: init/], ['canvas 10', /requires both/],
+  ['move r 1', /usage: move/],
+  ['move r 1 2 extra', /usage: move/],
+  ['init 1 2 3', /usage: init/],
+  ['canvas 10', /requires both/],
   ['create rect r 1 2 3 4', /id already exists: r/],
   ['create circle c 1x 2 3', /invalid number/],
   ['create text t 0 0 "unfinished', /unclosed double quote/],
@@ -82,7 +91,12 @@ for (const [line, error] of invalidCommands) {
 
 function cli(script: string, cwd: string): string {
   const entry = fileURLToPath(new URL('../src/main.ts', import.meta.url));
-  const result = spawnSync(process.execPath, ['--import', import.meta.resolve('tsx'), entry], { cwd, input: script, encoding: 'utf8', timeout: 20_000 });
+  const result = spawnSync(process.execPath, ['--import', import.meta.resolve('tsx'), entry], {
+    cwd,
+    input: script,
+    encoding: 'utf8',
+    timeout: 20_000,
+  });
   assert.ifError(result.error);
   assert.equal(result.status, 0, result.stderr);
   assert.equal(result.stderr, '');
@@ -95,8 +109,14 @@ for (const name of ['typical', 'flowchart', 'recovery']) {
   test(`real CLI process replays ${name} and validates its SVG artifact`, async () => {
     const directory = await mkdtemp(join(tmpdir(), 'svg-cli-'));
     try {
-      await writeFile(join(directory, 'other.svg'), await readFile(new URL('./fixtures/other.svg', import.meta.url)));
-      const script = await readFile(new URL(`../examples/${name}.commands`, import.meta.url), 'utf8');
+      await writeFile(
+        join(directory, 'other.svg'),
+        await readFile(new URL('./fixtures/other.svg', import.meta.url)),
+      );
+      const script = await readFile(
+        new URL(`../examples/${name}.commands`, import.meta.url),
+        'utf8',
+      );
       const output = cli(script, directory);
       const parser = new SvgParser();
       if (name === 'typical') {
@@ -113,19 +133,32 @@ for (const name of ['typical', 'flowchart', 'recovery']) {
       } else if (name === 'flowchart') {
         assert.doesNotMatch(output, /error:/);
         assert.match(output, /saved to flowchart.svg \(8 elements\)/);
-        const result = parser.parse(await readFile(join(directory, 'flowchart.svg'), 'utf8')).document;
+        const result = parser.parse(
+          await readFile(join(directory, 'flowchart.svg'), 'utf8'),
+        ).document;
         assert.equal(result.count, 8);
         assert.equal(result.find('process').attributes().y, '100');
         assert.equal(result.find('process-label').textContent, '处理数据 v2');
-        assert.deepEqual(result.find('flowchart').children.map(shape => shape.id), ['node1', 'node2', 'arrow1']);
+        assert.deepEqual(
+          result.find('flowchart').children.map((shape) => shape.id),
+          ['node1', 'node2', 'arrow1'],
+        );
       } else {
         assert.match(output, /error: unknown attribute: unknown/);
         assert.match(output, /error: undo not allowed after io command/);
         assert.match(output, /error: nothing to undo/);
         assert.match(output, /x="11"/);
-        assert.equal(parser.parse(await readFile(join(directory, 'recovery.svg'), 'utf8')).document.find('r').attributes().x, '11');
+        assert.equal(
+          parser
+            .parse(await readFile(join(directory, 'recovery.svg'), 'utf8'))
+            .document.find('r')
+            .attributes().x,
+          '11',
+        );
       }
-    } finally { await rm(directory, { recursive: true, force: true }); }
+    } finally {
+      await rm(directory, { recursive: true, force: true });
+    }
   });
 }
 
@@ -136,4 +169,54 @@ test('real CLI EOF, empty input and invalid command recover without a stack trac
   assert.match(output, /text="in"/);
   assert.doesNotMatch(output, /at .*\.ts:/);
   assert.doesNotMatch(cli('', process.cwd()), /error:/);
+});
+
+test('real CLI exercises all 19 command entry points in one session', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'svg-all-commands-'));
+  try {
+    const input =
+      [
+        'init 100 100',
+        'canvas',
+        'canvas 200 150',
+        'help',
+        'create g outer',
+        'create g inner in outer',
+        'create rect r 1 2 3 4 in inner',
+        'create circle c 5 6 2 in inner',
+        'create ellipse e 5 6 2 3',
+        'create line l 1 2 3 4 black',
+        'create text t 1 2 "文本 in 内容"',
+        'move inner 10 20',
+        'scale inner 2',
+        'set r fill red',
+        'group cluster e l',
+        'addto inner cluster',
+        'front r',
+        'back r',
+        'ungroup cluster',
+        'tree',
+        'show r',
+        'delete c',
+        'undo',
+        'redo',
+        'save all.svg',
+        'read all.svg',
+        'tree',
+      ].join('\n') + '\n';
+    const output = cli(input, directory);
+    assert.doesNotMatch(output, /error:/);
+    assert.match(output, /canvas resized to 200x150/);
+    const document = new SvgParser().parse(
+      await readFile(join(directory, 'all.svg'), 'utf8'),
+    ).document;
+    assert.equal(document.width, 200);
+    assert.equal(document.count, 6);
+    assert.equal(document.find('r').attributes().x, '22');
+    assert.equal(document.find('r').attributes().fill, 'red');
+    assert.equal(document.parent('e')?.id, 'inner');
+    assert.throws(() => document.find('c'), /no such shape/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
 });
