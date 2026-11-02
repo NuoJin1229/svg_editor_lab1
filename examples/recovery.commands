@@ -1,0 +1,14 @@
+init
+create rect r 1 2 3 4
+move r 10 0
+undo
+set r unknown 1
+redo
+show r
+save recovery.svg
+create box b 1 2 3 4 "unsupported"
+undo
+move r 0 0
+undo
+undo
+show r
