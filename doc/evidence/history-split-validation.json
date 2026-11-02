@@ -1,0 +1,501 @@
+{
+  "operation": "post-implementation feature-history split",
+  "createdAt": "2026-11-02T13:28:19.538Z",
+  "previousMain": "6162ef071d3551a1daa05a83ba56ac1585347b91",
+  "originalDevelopment": "0133fa4c21fbfc94bff4b433d45c788ef1424930",
+  "preservedInitial": "321cf8383fb6943f1969a969193d9403af00dc5a",
+  "plannedFunctionalCommits": 29,
+  "verifiedNodes": 29,
+  "complete": true,
+  "nodes": [
+    {
+      "step": 1,
+      "title": "chore: 初始化 TypeScript 工程与构建配置",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 0,
+      "checkedAt": "2026-11-02T13:27:11.995Z",
+      "commit": "027ca3937d15df233c61a5174567f801719d4168",
+      "tree": "ead6280972fe0932137bb22edc12c7db272c69fe",
+      "changedFiles": [
+        ".gitignore",
+        "package-lock.json",
+        "package.json",
+        "src/main.ts",
+        "tsconfig.build.json",
+        "tsconfig.json"
+      ]
+    },
+    {
+      "step": 2,
+      "title": "docs: 明确模块职责、依赖方向和验收清单",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 0,
+      "checkedAt": "2026-11-02T13:27:13.145Z",
+      "commit": "c42d0c9a84c279c21b6da5138a468a9467318766",
+      "tree": "6be620b7afb8ba37780afe9e44db9b92a769b572",
+      "changedFiles": [
+        "README.md",
+        "doc/README.md",
+        "doc/acceptance.md",
+        "doc/architecture.puml",
+        "doc/architecture.svg"
+      ]
+    },
+    {
+      "step": 3,
+      "title": "feat: 定义图形抽象、数值约束与组合容器",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 0,
+      "checkedAt": "2026-11-02T13:27:14.053Z",
+      "commit": "0522c26e684003361cf86638a7cdd0cd5c4158a5",
+      "tree": "d3e0e56bbb10789c6dac3135627a88d97ce49ae6",
+      "changedFiles": [
+        "src/domain/GroupShape.ts",
+        "src/domain/Shape.ts",
+        "src/domain/Value.ts"
+      ]
+    },
+    {
+      "step": 4,
+      "title": "feat: 实现矩形属性、平移与缩放",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 0,
+      "checkedAt": "2026-11-02T13:27:15.031Z",
+      "commit": "9952fceefd034ecbc0e9c92912562ea3ee046467",
+      "tree": "ef2365a18c22de099b0be5429135d906ab87012f",
+      "changedFiles": [
+        "src/domain/NumericShape.ts",
+        "src/domain/RectShape.ts"
+      ]
+    },
+    {
+      "step": 5,
+      "title": "feat: 支持圆形与椭圆的几何操作",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 0,
+      "checkedAt": "2026-11-02T13:27:15.937Z",
+      "commit": "8ec7062f92d3c6269afc7a842516febae05f64e8",
+      "tree": "a8cb14f1ba8b7d88b595667255bf14e7ff9b21a2",
+      "changedFiles": [
+        "src/domain/CircleShape.ts",
+        "src/domain/EllipseShape.ts"
+      ]
+    },
+    {
+      "step": 6,
+      "title": "feat: 支持线段与中文文本图形",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 0,
+      "checkedAt": "2026-11-02T13:27:17.124Z",
+      "commit": "21bc6654f7ec32c9e7656286796b3141620f147a",
+      "tree": "ae388824c26c70667f52d98650a0722b9d879fe5",
+      "changedFiles": [
+        "src/domain/LineShape.ts",
+        "src/domain/TextShape.ts"
+      ]
+    },
+    {
+      "step": 7,
+      "title": "feat: 集中创建六类图形并校验类型参数",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 0,
+      "checkedAt": "2026-11-02T13:27:17.962Z",
+      "commit": "48fc8b8f636e9aae89f4a19ce9a97a4fd766dda3",
+      "tree": "29de054f66fbe2d966259c47cc2132b0989ce498",
+      "changedFiles": [
+        "src/domain/ShapeFactory.ts"
+      ]
+    },
+    {
+      "step": 8,
+      "title": "feat: 管理画布、唯一 ID 和图形层级顺序",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 0,
+      "checkedAt": "2026-11-02T13:27:18.924Z",
+      "commit": "a3d9d0cc4d4464f247fd789ef27e6138793b06cd",
+      "tree": "34e797ed0bc66a9cce20c44f55c1fbfdf01bf1ac",
+      "changedFiles": [
+        "src/domain/SvgDocument.ts"
+      ]
+    },
+    {
+      "step": 9,
+      "title": "test: 验证图形变换、树操作和文档快照",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 10,
+      "checkedAt": "2026-11-02T13:27:20.224Z",
+      "commit": "f57622782f4aaa51ff10454b651d7df12ba55732",
+      "tree": "e8e5fd2d3263a3957aeb03ce0588d7ddd1903c9b",
+      "changedFiles": [
+        "src/domain/DocumentSnapshot.ts",
+        "tests/domain.test.ts"
+      ]
+    },
+    {
+      "step": 10,
+      "title": "feat: 展示图形结构树与属性明细",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 10,
+      "checkedAt": "2026-11-02T13:27:21.400Z",
+      "commit": "c34977acfebdd20d08709d4363d21bf17f37c59e",
+      "tree": "776f8b2e4946aba94172c13bd355b8f42b6a384d",
+      "changedFiles": [
+        "src/application/queries/ShowFormatter.ts",
+        "src/application/queries/TreeFormatter.ts"
+      ]
+    },
+    {
+      "step": 11,
+      "title": "feat: 建立命令事务和撤销重做历史",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 10,
+      "checkedAt": "2026-11-02T13:27:22.778Z",
+      "commit": "d4b8f586af5fd1ebcda6cd4ddf0c532c92c98ccc",
+      "tree": "09c5ac533d95a169f8e4265852b8c8f0b5e0f76c",
+      "changedFiles": [
+        "src/application/Command.ts",
+        "src/application/HistoryManager.ts"
+      ]
+    },
+    {
+      "step": 12,
+      "title": "feat: 支持图形创建与子树删除命令",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 10,
+      "checkedAt": "2026-11-02T13:27:23.860Z",
+      "commit": "29cf7406fc36244d5b5bab2e01536005f92b2fc5",
+      "tree": "d26a34c2cb9398fc113310824eb59ecbddcf0850",
+      "changedFiles": [
+        "src/application/commands/CreateShapeCommand.ts",
+        "src/application/commands/DeleteShapeCommand.ts"
+      ]
+    },
+    {
+      "step": 13,
+      "title": "feat: 支持移动、缩放与属性修改命令",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 10,
+      "checkedAt": "2026-11-02T13:27:25.524Z",
+      "commit": "e72cd1b122c9b421c8568963d54f6ec446106214",
+      "tree": "4d47cab443c9aeb88f8650294762d71650232095",
+      "changedFiles": [
+        "src/application/commands/MoveShapeCommand.ts",
+        "src/application/commands/ScaleShapeCommand.ts",
+        "src/application/commands/SetAttributeCommand.ts"
+      ]
+    },
+    {
+      "step": 14,
+      "title": "feat: 支持分组、解组和移动图形归属",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 10,
+      "checkedAt": "2026-11-02T13:27:26.815Z",
+      "commit": "06902812bd070aa27e242a3ff2e1ed8d8ed1d4e6",
+      "tree": "546b802b5d87da4a00557f1f5384dbb270d03fc5",
+      "changedFiles": [
+        "src/application/commands/AddToCommand.ts",
+        "src/application/commands/GroupCommand.ts",
+        "src/application/commands/UngroupCommand.ts"
+      ]
+    },
+    {
+      "step": 15,
+      "title": "feat: 支持图形置顶和置底",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 10,
+      "checkedAt": "2026-11-02T13:27:28.217Z",
+      "commit": "7d1bdc36e8cb95dc50cddc15255bd45a0bb7343b",
+      "tree": "4f9ace093be6402ef3e1faef662cb07a305507ce",
+      "changedFiles": [
+        "src/application/commands/BackCommand.ts",
+        "src/application/commands/FrontCommand.ts"
+      ]
+    },
+    {
+      "step": 16,
+      "title": "feat: 协调编辑会话、文件端口和历史屏障",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 24,
+      "checkedAt": "2026-11-02T13:27:30.048Z",
+      "commit": "cc59f193298fc2c8056e6ffc816c7e92998bfef5",
+      "tree": "dc7025829fffec6b86400fce850b40b79b4ff371",
+      "changedFiles": [
+        "src/application/EditorService.ts",
+        "src/application/ports/DocumentStore.ts",
+        "tests/FakeDocumentStore.ts",
+        "tests/application.test.ts"
+      ]
+    },
+    {
+      "step": 17,
+      "title": "feat: 将图形树序列化为合法 SVG",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 24,
+      "checkedAt": "2026-11-02T13:27:31.174Z",
+      "commit": "921f2f86857724542380a1552a8a04d06765b596",
+      "tree": "aec0892e8bf38b2ac6bf878ae55df9d0d1d6f741",
+      "changedFiles": [
+        "src/infrastructure/SvgSerializer.ts"
+      ]
+    },
+    {
+      "step": 18,
+      "title": "feat: 解析嵌套 SVG 并自动补全缺失 ID",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 24,
+      "checkedAt": "2026-11-02T13:27:32.671Z",
+      "commit": "3ba90c06846c06e8da5dfe6d21f6a17594f11e97",
+      "tree": "feaa15512660de9671de03013a0e927118963f74",
+      "changedFiles": [
+        "src/infrastructure/SvgParser.ts",
+        "tests/fixtures/other.svg"
+      ]
+    },
+    {
+      "step": 19,
+      "title": "feat: 实现文件读取和原子覆盖保存",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 43,
+      "checkedAt": "2026-11-02T13:27:34.663Z",
+      "commit": "c2e041fb5c7ccee9a6303923304c9888fe6914c8",
+      "tree": "49e8dfbdd2ac6ca5e62113dd61d568c9dbe75fc1",
+      "changedFiles": [
+        "src/infrastructure/FileDocumentStore.ts",
+        "tests/svg.test.ts"
+      ]
+    },
+    {
+      "step": 20,
+      "title": "feat: 解析引号、颜色、注释和 Windows 路径",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 43,
+      "checkedAt": "2026-11-02T13:27:36.462Z",
+      "commit": "47a9c853e071fe64944e23245fe528ca4bf08d48",
+      "tree": "334e159ff4819948780ccb3a41bfbfa1ca23fd4f",
+      "changedFiles": [
+        "src/cli/CommandTokenizer.ts"
+      ]
+    },
+    {
+      "step": 21,
+      "title": "feat: 分发十九种命令并解析容器归属",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 43,
+      "checkedAt": "2026-11-02T13:27:38.013Z",
+      "commit": "7b19a6824c2e3c4a146f96114348b3b7bb45cb05",
+      "tree": "8b2a9d76ab71c1cc5a7c0949a528446920a86cda",
+      "changedFiles": [
+        "src/cli/CommandDispatcher.ts"
+      ]
+    },
+    {
+      "step": 22,
+      "title": "feat: 接通逐行交互并回放课程典型会话",
+      "typecheck": true,
+      "build": true,
+      "architecture": false,
+      "tests": 65,
+      "checkedAt": "2026-11-02T13:27:42.132Z",
+      "commit": "7bbb2cdcd1027fa6ca7c4cd4fc745c306db08583",
+      "tree": "65b2cc57406b8863e8f89bec38410e8c5ff2f45b",
+      "changedFiles": [
+        "examples/flowchart.commands",
+        "examples/recovery.commands",
+        "examples/typical.commands",
+        "src/cli/SvgRepl.ts",
+        "src/main.ts",
+        "tests/cli.test.ts"
+      ]
+    },
+    {
+      "step": 23,
+      "title": "test: 检查模块依赖与类文件命名约束",
+      "typecheck": true,
+      "build": true,
+      "architecture": true,
+      "tests": 65,
+      "checkedAt": "2026-11-02T13:27:45.347Z",
+      "commit": "2aa6336e478d74169a8148c3f27dc0e173bf15e9",
+      "tree": "dec1bb5b38b0dab1d753d20cf868110a3de96651",
+      "changedFiles": [
+        "package.json",
+        "scripts/check-architecture.ts"
+      ]
+    },
+    {
+      "step": 24,
+      "title": "fix: 严格校验 SVG 命名空间、样式指令和数值",
+      "typecheck": true,
+      "build": true,
+      "architecture": true,
+      "tests": 65,
+      "checkedAt": "2026-11-02T13:27:49.162Z",
+      "commit": "0d4c5284bcfef055a649a4e549b35b5dc1a70301",
+      "tree": "433c383d4b731eae7c5c14859a206990ca1cb6d7",
+      "changedFiles": [
+        "src/domain/ShapeFactory.ts",
+        "src/infrastructure/SvgParser.ts",
+        "tests/svg.test.ts"
+      ]
+    },
+    {
+      "step": 25,
+      "title": "test: 渲染 SVG 并验证遮挡顺序与容器平移",
+      "typecheck": true,
+      "build": true,
+      "architecture": true,
+      "tests": 66,
+      "checkedAt": "2026-11-02T13:27:53.580Z",
+      "commit": "bb6862e03c7f09d23de7852923e9d3a71186f20a",
+      "tree": "61c375c1d1e012efd51bb9c812241d4877084232",
+      "changedFiles": [
+        "package.json",
+        "scripts/render.ts",
+        "tests/render.test.ts"
+      ]
+    },
+    {
+      "step": 26,
+      "title": "test: 覆盖全部命令入口与图形属性白名单",
+      "typecheck": true,
+      "build": true,
+      "architecture": true,
+      "tests": 67,
+      "checkedAt": "2026-11-02T13:27:58.045Z",
+      "commit": "e5dc0f0d470cf902f830fc365ae37ae68ae64eea",
+      "tree": "ec80eee94c5f3528cbda3e78bebe7e38433e4c78",
+      "changedFiles": [
+        "tests/cli.test.ts",
+        "tests/domain.test.ts"
+      ]
+    },
+    {
+      "step": 27,
+      "title": "feat: 提供可回放示例、SVG 产物与图像预览",
+      "typecheck": true,
+      "build": true,
+      "architecture": true,
+      "tests": 67,
+      "checkedAt": "2026-11-02T13:28:04.415Z",
+      "commit": "e9711e68b877da7b64613ed4f94cb903338f7b6b",
+      "tree": "b4d7d87e8c6104dc5520983de0320d6b955b356f",
+      "changedFiles": [
+        "doc/architecture.png",
+        "doc/evidence/compiled-cli.txt",
+        "doc/evidence/flowchart.txt",
+        "doc/evidence/moved.txt",
+        "doc/evidence/npm-cli.txt",
+        "doc/evidence/recovery.txt",
+        "doc/evidence/typical.txt",
+        "doc/evidence/verification.txt",
+        "examples/demo.svg",
+        "examples/flowchart-moved.png",
+        "examples/flowchart-moved.svg",
+        "examples/flowchart.png",
+        "examples/flowchart.svg",
+        "examples/moved.commands",
+        "examples/other.svg",
+        "examples/recovery.svg",
+        "package.json",
+        "scripts/run-examples.ts"
+      ]
+    },
+    {
+      "step": 28,
+      "title": "chore: 统一源码排版和文本换行规则",
+      "typecheck": true,
+      "build": true,
+      "architecture": true,
+      "tests": 67,
+      "checkedAt": "2026-11-02T13:28:15.004Z",
+      "commit": "9824c759e4fb9fd0935199e58d900f7171c1d5ec",
+      "tree": "7776a553140c1f3b0c7b7c00a08b40fd2facfd3b",
+      "changedFiles": [
+        ".gitattributes",
+        ".prettierrc.json",
+        "package-lock.json",
+        "package.json",
+        "src/application/EditorService.ts",
+        "src/application/commands/AddToCommand.ts",
+        "src/application/commands/BackCommand.ts",
+        "src/application/commands/CreateShapeCommand.ts",
+        "src/application/commands/DeleteShapeCommand.ts",
+        "src/application/commands/FrontCommand.ts",
+        "src/application/commands/GroupCommand.ts",
+        "src/application/commands/MoveShapeCommand.ts",
+        "src/application/commands/ScaleShapeCommand.ts",
+        "src/application/commands/SetAttributeCommand.ts",
+        "src/application/commands/UngroupCommand.ts",
+        "src/cli/CommandDispatcher.ts",
+        "src/cli/CommandTokenizer.ts",
+        "src/cli/SvgRepl.ts",
+        "src/domain/CircleShape.ts",
+        "src/domain/DocumentSnapshot.ts",
+        "src/domain/EllipseShape.ts",
+        "src/domain/GroupShape.ts",
+        "src/domain/LineShape.ts",
+        "src/domain/NumericShape.ts",
+        "src/domain/RectShape.ts",
+        "src/domain/Shape.ts",
+        "src/domain/SvgDocument.ts",
+        "src/domain/TextShape.ts",
+        "src/domain/Value.ts",
+        "src/infrastructure/FileDocumentStore.ts",
+        "src/infrastructure/SvgSerializer.ts",
+        "tests/application.test.ts"
+      ]
+    },
+    {
+      "step": 29,
+      "title": "docs: 完善实验报告并记录功能历史整理依据",
+      "typecheck": true,
+      "build": true,
+      "architecture": true,
+      "tests": 67,
+      "checkedAt": "2026-11-02T13:28:19.444Z",
+      "commit": "this-document-commit"
+    }
+  ]
+}
