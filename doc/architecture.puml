@@ -1,0 +1,25 @@
+@startuml
+title Lab1 Phase 1 - Package dependencies
+skinparam packageStyle rectangle
+skinparam shadowing false
+top to bottom direction
+
+component "main.ts\nComposition root" as Main
+package "cli" as CLI
+package "application\ncommands / history / queries\nports: DocumentStore" as App
+package "infrastructure\nSVG parser / serializer\nFileDocumentStore" as Infra
+package "domain\nShape hierarchy / document\ntree / IDs / snapshots" as Domain
+
+Main --> CLI
+Main --> App
+Main --> Infra
+CLI --> App
+App --> Domain
+Infra --> App : ports only
+Infra --> Domain
+
+legend bottom
+  Arrow = source dependency
+  Domain depends only on its own modules and language primitives.
+endlegend
+@enduml
